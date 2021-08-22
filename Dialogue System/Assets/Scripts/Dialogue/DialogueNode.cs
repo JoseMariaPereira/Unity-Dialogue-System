@@ -9,6 +9,7 @@ namespace FlyingCrow.Dialogue
         [SerializeField] private string uniqueID;
         [SerializeField] private string text;
         [SerializeField] private List<string> children = new List<string>();
+        [SerializeField] private Rect position;
 
         public string GetUniqueID()
         {
@@ -29,5 +30,11 @@ namespace FlyingCrow.Dialogue
         {
             this.text = text;
         }
+
+        public Rect GetPosition()
+        {
+            return position;
+        }
+
     }
 }

@@ -9,6 +9,7 @@ namespace FlyingCrow.Dialogue.Editor
     public class DialogueEditor : EditorWindow
     {
         private Dialogue selectedDialogue = null;
+        private GUIStyle nodeStyle;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -32,6 +33,12 @@ namespace FlyingCrow.Dialogue.Editor
         private void OnEnable()
         {
             Selection.selectionChanged += ChangeSelection;
+
+            nodeStyle = new GUIStyle();
+            nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
+            nodeStyle.padding = new RectOffset(20, 20, 20, 20);
+            nodeStyle.border = new RectOffset(12, 12, 12, 12);
+
         }
 
         private void ChangeSelection()
@@ -55,20 +62,30 @@ namespace FlyingCrow.Dialogue.Editor
                 EditorGUILayout.LabelField(selectedDialogue.name);
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
-                    EditorGUI.BeginChangeCheck();
-                    EditorGUILayout.LabelField("");
-                    EditorGUILayout.LabelField(node.GetUniqueID());
-                    string id = EditorGUILayout.TextField("Unique ID", node.GetUniqueID());
-                    string text = EditorGUILayout.TextField("Text", node.GetText());
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        Undo.RecordObject(selectedDialogue, "Dialogue Content");
-                        node.SetUniqueID(id);
-                        node.SetText(text);
-                    }
+                    CreateNodeLayout(node);
                 }
             }
             
+        }
+
+        private void CreateNodeLayout(DialogueNode node)
+        {
+            GUILayout.BeginArea(node.GetPosition(), nodeStyle);
+            EditorGUI.BeginChangeCheck();
+
+            EditorGUILayout.LabelField(node.GetUniqueID(), EditorStyles.boldLabel);
+
+            string id = EditorGUILayout.TextField("Unique ID", node.GetUniqueID());
+            string text = EditorGUILayout.TextField("Text", node.GetText());
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(selectedDialogue, "Dialogue Content");
+                node.SetUniqueID(id);
+                node.SetText(text);
+            }
+
+            GUILayout.EndArea();
         }
     }
 }
