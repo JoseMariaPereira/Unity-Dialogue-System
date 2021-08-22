@@ -10,9 +10,24 @@ namespace FlyingCrow.Dialogue
         [SerializeField] private string text;
         [SerializeField] private List<string> children = new List<string>();
 
+        public string GetUniqueID()
+        {
+            return uniqueID;
+        }
+
+        public void SetUniqueID(string uniqueID)
+        {
+            this.uniqueID = uniqueID;
+        }
+
         public string GetText()
         {
             return text;
+        }
+
+        public void SetText(string text)
+        {
+            this.text = text;
         }
     }
 }

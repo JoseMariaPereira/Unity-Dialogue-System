@@ -53,9 +53,19 @@ namespace FlyingCrow.Dialogue.Editor
             else
             {
                 EditorGUILayout.LabelField(selectedDialogue.name);
-                foreach(DialogueNode node in selectedDialogue.GetAllNodes())
+                foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
-                    EditorGUILayout.LabelField(node.GetText());
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.LabelField("");
+                    EditorGUILayout.LabelField(node.GetUniqueID());
+                    string id = EditorGUILayout.TextField("Unique ID", node.GetUniqueID());
+                    string text = EditorGUILayout.TextField("Text", node.GetText());
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        Undo.RecordObject(selectedDialogue, "Dialogue Content");
+                        node.SetUniqueID(id);
+                        node.SetText(text);
+                    }
                 }
             }
             

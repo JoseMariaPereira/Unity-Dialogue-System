@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee750561830b16242a080eb065308e0f, type: 3}
   m_Name: WASAP
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - uniqueID: Number 1
+    text: Hello Man
+    children: []
+  - uniqueID: BBB
+    text: NO Man
+    children: []
+  - uniqueID: CCC
+    text: Yaaas MAAAAAAAAAAAAAAAAAAN
+    children: []
