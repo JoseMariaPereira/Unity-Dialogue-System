@@ -8,6 +8,11 @@ namespace FlyingCrow.Dialogue
     {
         [SerializeField] private string uniqueID;
         [SerializeField] private string text;
-        [SerializeField] private List<string> children;
+        [SerializeField] private List<string> children = new List<string>();
+
+        public string GetText()
+        {
+            return text;
+        }
     }
 }
