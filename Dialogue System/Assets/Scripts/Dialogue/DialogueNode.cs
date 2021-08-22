@@ -8,8 +8,8 @@ namespace FlyingCrow.Dialogue
     {
         [SerializeField] private string uniqueID;
         [SerializeField] private string text;
+        [SerializeField] private Rect rect = new Rect(0, 0, 400, 100); 
         [SerializeField] private List<string> children = new List<string>();
-        [SerializeField] private Rect position;
 
         public string GetUniqueID()
         {
@@ -31,9 +31,14 @@ namespace FlyingCrow.Dialogue
             this.text = text;
         }
 
-        public Rect GetPosition()
+        public Rect GetRect()
         {
-            return position;
+            return rect;
+        }
+
+        public void SetRectPosition(Vector2 position)
+        {
+            rect.position = position;
         }
 
     }

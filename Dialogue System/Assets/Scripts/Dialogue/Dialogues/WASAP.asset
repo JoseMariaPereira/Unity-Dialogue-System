@@ -15,10 +15,28 @@ MonoBehaviour:
   nodes:
   - uniqueID: Number 1
     text: Hello Man
+    rect:
+      serializedVersion: 2
+      x: 500
+      y: 44
+      width: 400
+      height: 100
     children: []
-  - uniqueID: BBB
+  - uniqueID: Number 2
     text: NO Man
+    rect:
+      serializedVersion: 2
+      x: 617
+      y: 196
+      width: 400
+      height: 100
     children: []
-  - uniqueID: CCC
+  - uniqueID: Number 3
     text: Yaaas MAAAAAAAAAAAAAAAAAAN
+    rect:
+      serializedVersion: 2
+      x: 180
+      y: 306
+      width: 400
+      height: 100
     children: []

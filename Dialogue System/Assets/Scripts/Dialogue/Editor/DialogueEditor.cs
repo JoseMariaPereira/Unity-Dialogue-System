@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -10,6 +11,8 @@ namespace FlyingCrow.Dialogue.Editor
     {
         private Dialogue selectedDialogue = null;
         private GUIStyle nodeStyle;
+        private DialogueNode draggingNode = null;
+        private Vector2 dragOffSet = Vector2.zero;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -59,18 +62,40 @@ namespace FlyingCrow.Dialogue.Editor
             }
             else
             {
+                CatchEvents();
                 EditorGUILayout.LabelField(selectedDialogue.name);
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
                     CreateNodeLayout(node);
                 }
             }
-            
+        }
+
+        private void CatchEvents()
+        {
+            if (Event.current.type.Equals(EventType.MouseDown) && draggingNode == null)
+            {
+                draggingNode = GetNodeAtPoint(Event.current.mousePosition);
+                if (draggingNode != null)
+                {
+                    dragOffSet = draggingNode.GetRect().position - Event.current.mousePosition;
+                }
+            }
+            else if (Event.current.type.Equals(EventType.MouseDrag) && draggingNode != null)
+            {
+                Undo.RecordObject(selectedDialogue, "Move Dialogue Node");
+                draggingNode.SetRectPosition(Event.current.mousePosition + dragOffSet); 
+                GUI.changed = true;
+            }
+            else if (Event.current.type.Equals(EventType.MouseUp) && draggingNode != null)
+            {
+                draggingNode = null;
+            }
         }
 
         private void CreateNodeLayout(DialogueNode node)
         {
-            GUILayout.BeginArea(node.GetPosition(), nodeStyle);
+            GUILayout.BeginArea(node.GetRect(), nodeStyle);
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.LabelField(node.GetUniqueID(), EditorStyles.boldLabel);
@@ -86,6 +111,19 @@ namespace FlyingCrow.Dialogue.Editor
             }
 
             GUILayout.EndArea();
+        }
+
+        private DialogueNode GetNodeAtPoint(Vector2 point)
+        {
+            DialogueNode lastNode = null;
+            foreach(DialogueNode node in selectedDialogue.GetAllNodes())
+            {
+                if (node.GetRect().Contains(point))
+                {
+                    lastNode = node;
+                }
+            }
+            return lastNode;
         }
     }
 }

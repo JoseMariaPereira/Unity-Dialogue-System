@@ -15,4 +15,10 @@ MonoBehaviour:
   nodes:
   - uniqueID: Hello
     text: This suckerinos
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 154
+      width: 400
+      height: 100
     children: []
