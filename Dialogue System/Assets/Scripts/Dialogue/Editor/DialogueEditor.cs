@@ -8,6 +8,8 @@ namespace FlyingCrow.Dialogue.Editor
 {
     public class DialogueEditor : EditorWindow
     {
+        private Dialogue selectedDialogue = null;
+
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
         {
@@ -19,12 +21,40 @@ namespace FlyingCrow.Dialogue.Editor
         {
             bool isDialogue = false;
             Dialogue dialogue = EditorUtility.InstanceIDToObject(instanceID) as Dialogue;
-            if (dialogue != null)
+            if (dialogue)
             {
                 DialogueEditor.ShowWindow();
                 isDialogue = true;
             }
             return isDialogue;
+        }
+
+        private void OnEnable()
+        {
+            Selection.selectionChanged += ChangeSelection;
+        }
+
+        private void ChangeSelection()
+        {
+            Dialogue dialogue = Selection.activeObject as Dialogue;
+            if (dialogue)
+            {
+                selectedDialogue = dialogue;
+                Repaint();
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (!selectedDialogue)
+            {
+                EditorGUILayout.LabelField("No Dialogue selected");
+            }
+            else
+            {
+                EditorGUILayout.LabelField(selectedDialogue.name);
+            }
+            
         }
     }
 }
