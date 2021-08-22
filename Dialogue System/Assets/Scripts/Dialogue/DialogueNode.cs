@@ -41,5 +41,10 @@ namespace FlyingCrow.Dialogue
             rect.position = position;
         }
 
+        public List<string> GetChildren()
+        {
+            return children;
+        }
+
     }
 }

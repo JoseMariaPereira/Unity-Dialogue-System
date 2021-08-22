@@ -13,6 +13,7 @@ namespace FlyingCrow.Dialogue.Editor
         private GUIStyle nodeStyle;
         private DialogueNode draggingNode = null;
         private Vector2 dragOffSet = Vector2.zero;
+        private float lineSize = 3f;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -66,7 +67,8 @@ namespace FlyingCrow.Dialogue.Editor
                 EditorGUILayout.LabelField(selectedDialogue.name);
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
-                    CreateNodeLayout(node);
+                    DrawNodeLayout(node);
+                    DrawConnections(node); 
                 }
             }
         }
@@ -93,7 +95,7 @@ namespace FlyingCrow.Dialogue.Editor
             }
         }
 
-        private void CreateNodeLayout(DialogueNode node)
+        private void DrawNodeLayout(DialogueNode node)
         {
             GUILayout.BeginArea(node.GetRect(), nodeStyle);
             EditorGUI.BeginChangeCheck();
@@ -111,6 +113,38 @@ namespace FlyingCrow.Dialogue.Editor
             }
 
             GUILayout.EndArea();
+        }
+
+        private void DrawConnections(DialogueNode node)
+        {
+            foreach (DialogueNode child in selectedDialogue.GetAllChildren(node))
+            {
+                Vector3 startPosition;
+                Vector3 endPosition;
+                Vector3 offSet;
+                if (Mathf.Abs(node.GetRect().position.x - child.GetRect().position.x) * node.GetRect().height 
+                    <= Mathf.Abs(node.GetRect().position.y - child.GetRect().position.y) * node.GetRect().width)
+                {
+                    startPosition = new Vector2(node.GetRect().center.x, node.GetRect().yMax);
+                    endPosition = new Vector2(child.GetRect().center.x, child.GetRect().yMin);
+                    offSet = endPosition - startPosition;
+                    offSet.y = Mathf.Abs(offSet.y * 0.9f);
+                    offSet.x = 0;
+                }
+                else
+                {
+                    startPosition = new Vector2(node.GetRect().xMax, node.GetRect().center.y);
+                    endPosition = new Vector2(child.GetRect().xMin, child.GetRect().center.y);
+                    offSet = endPosition - startPosition;
+                    offSet.y = 0;
+                    offSet.x = Mathf.Abs(offSet.x * 0.9f); 
+                }
+                Handles.DrawBezier(
+                    startPosition, endPosition, 
+                    startPosition + offSet, 
+                    endPosition - offSet, 
+                    Color.white, null, lineSize);
+            }
         }
 
         private DialogueNode GetNodeAtPoint(Vector2 point)
