@@ -11,6 +11,7 @@ namespace FlyingCrow.Dialogue.Editor
     {
         private Dialogue selectedDialogue = null;
         [NonSerialized] private GUIStyle nodeStyle;
+        [NonSerialized] private GUIStyle playerStyle;
         [NonSerialized] private DialogueNode draggingNode = null;
         [NonSerialized] private Vector2 dragNodeOffSet = Vector2.zero;
         [NonSerialized] private float lineSize = 3f;
@@ -52,6 +53,11 @@ namespace FlyingCrow.Dialogue.Editor
             nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
             nodeStyle.padding = new RectOffset(20, 20, 20, 20);
             nodeStyle.border = new RectOffset(12, 12, 12, 12);
+
+            playerStyle = new GUIStyle();
+            playerStyle.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
+            playerStyle.padding = new RectOffset(20, 20, 20, 20);
+            playerStyle.border = new RectOffset(12, 12, 12, 12);
 
         }
 
@@ -96,13 +102,11 @@ namespace FlyingCrow.Dialogue.Editor
 
                 if (creatingNode != null)
                 {
-                    Undo.RecordObject(selectedDialogue, "Add Dialogue Node");
                     selectedDialogue.CreateNode(creatingNode);
                     creatingNode = null;
                 }
                 if (deletingNode != null)
                 {
-                    Undo.RecordObject(selectedDialogue, "Remove Dialogue Node");
                     selectedDialogue.DeleteNode(deletingNode);
                     deletingNode = null;
                 }
@@ -138,7 +142,6 @@ namespace FlyingCrow.Dialogue.Editor
             }
             else if (Event.current.type.Equals(EventType.MouseDrag) && draggingNode != null)
             {
-                Undo.RecordObject(selectedDialogue, "Move Dialogue Node");
                 draggingNode.SetRectPosition(Event.current.mousePosition + dragNodeOffSet); 
                 GUI.changed = true;
             }
@@ -159,19 +162,13 @@ namespace FlyingCrow.Dialogue.Editor
 
         private void DrawNodeLayout(DialogueNode node)
         {
-            GUILayout.BeginArea(node.GetRect(), nodeStyle);
-            EditorGUI.BeginChangeCheck();
+
+            GUILayout.BeginArea(node.GetRect(), node.IsPlayer() ? playerStyle : nodeStyle);
 
             EditorGUILayout.LabelField(node.name, EditorStyles.boldLabel);
             EditorGUILayout.LabelField("");
 
-            string text = EditorGUILayout.TextField("Text", node.GetText());
-
-            if (EditorGUI.EndChangeCheck())
-            {
-                Undo.RecordObject(selectedDialogue, "Dialogue Content");
-                node.SetText(text);
-            }
+            node.SetText(EditorGUILayout.TextField("Text", node.GetText()));
 
             //Horizontal align buttons
             GUILayout.BeginHorizontal();
@@ -209,7 +206,6 @@ namespace FlyingCrow.Dialogue.Editor
             {
                 if (GUILayout.Button("unlink"))
                 {
-                    Undo.RecordObject(selectedDialogue, "Remove Dialogue Link");
                     linkingParentNode.RemoveChild(node);
                     linkingParentNode = null;
                 }
@@ -218,7 +214,6 @@ namespace FlyingCrow.Dialogue.Editor
             {
                 if (GUILayout.Button("child"))
                 {
-                    Undo.RecordObject(selectedDialogue, "Add Dialogue Link");
                     linkingParentNode.AddChild(node);
                     linkingParentNode = null;
                 }
