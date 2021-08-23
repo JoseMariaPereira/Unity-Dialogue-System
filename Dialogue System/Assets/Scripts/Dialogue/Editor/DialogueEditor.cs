@@ -10,10 +10,18 @@ namespace FlyingCrow.Dialogue.Editor
     public class DialogueEditor : EditorWindow
     {
         private Dialogue selectedDialogue = null;
+        [NonSerialized]
         private GUIStyle nodeStyle;
+        [NonSerialized]
         private DialogueNode draggingNode = null;
+        [NonSerialized]
         private Vector2 dragOffSet = Vector2.zero;
+        [NonSerialized]
         private float lineSize = 3f;
+        [NonSerialized]
+        private DialogueNode creatingNode = null;
+        [NonSerialized]
+        private DialogueNode deletingNode = null;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -67,8 +75,23 @@ namespace FlyingCrow.Dialogue.Editor
                 EditorGUILayout.LabelField(selectedDialogue.name);
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
+                    DrawConnections(node);
+                }
+                foreach (DialogueNode node in selectedDialogue.GetAllNodes())
+                {
                     DrawNodeLayout(node);
-                    DrawConnections(node); 
+                }
+                if (creatingNode != null)
+                {
+                    Undo.RecordObject(selectedDialogue, "Add Dialogue Node");
+                    selectedDialogue.CreateNode(creatingNode);
+                    creatingNode = null;
+                }
+                if (deletingNode != null)
+                {
+                    Undo.RecordObject(selectedDialogue, "Remove Dialogue Node");
+                    selectedDialogue.DeleteNode(deletingNode);
+                    deletingNode = null;
                 }
             }
         }
@@ -102,15 +125,25 @@ namespace FlyingCrow.Dialogue.Editor
 
             EditorGUILayout.LabelField(node.GetUniqueID(), EditorStyles.boldLabel);
 
-            string id = EditorGUILayout.TextField("Unique ID", node.GetUniqueID());
             string text = EditorGUILayout.TextField("Text", node.GetText());
 
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(selectedDialogue, "Dialogue Content");
-                node.SetUniqueID(id);
                 node.SetText(text);
             }
+
+            //Horizontal align
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("x"))
+            {
+                deletingNode = node;
+            }
+            if (GUILayout.Button("+"))
+            {
+                creatingNode = node;
+            }
+            GUILayout.EndHorizontal();
 
             GUILayout.EndArea();
         }

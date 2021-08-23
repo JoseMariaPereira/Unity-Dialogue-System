@@ -46,5 +46,15 @@ namespace FlyingCrow.Dialogue
             return children;
         }
 
+        public void AddChild(DialogueNode child)
+        {
+            children.Add(child.GetUniqueID());
+        }
+
+        public void RemoveChild(DialogueNode child)
+        {
+            children.Remove(child.GetUniqueID());
+        }
+
     }
 }

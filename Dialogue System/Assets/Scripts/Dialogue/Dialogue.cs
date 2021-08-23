@@ -15,7 +15,9 @@ namespace FlyingCrow.Dialogue
         {
             if (nodes.Count == 0)
             {
-                nodes.Add(new DialogueNode());
+                DialogueNode rootNode = new DialogueNode();
+                rootNode.SetUniqueID(Guid.NewGuid().ToString());
+                nodes.Add(rootNode);
             }
             OnValidate();
         }
@@ -23,38 +25,11 @@ namespace FlyingCrow.Dialogue
 
         private void OnValidate()
         {
+            nodeDictionary.Clear();
             foreach(DialogueNode node in GetAllNodes())
             {
-                if (nodeDictionary.ContainsValue(node))
-                {
-                    if (!nodeDictionary.ContainsKey(node.GetUniqueID()))
-                    {
-                        string keyToRemove = null;
-                        foreach (string key in nodeDictionary.Keys)
-                        {
-                            if (nodeDictionary[key].Equals(node))
-                            {
-                                keyToRemove = key;
-                            }
-                        }
-                        if (keyToRemove != null)
-                        {
-                            nodeDictionary.Remove(keyToRemove);
-                            nodeDictionary.Add(node.GetUniqueID(), node);
-                        }
-                    }
-                }
-                else
-                {
-                    if (!nodeDictionary.ContainsKey(node.GetUniqueID()))
-                    {
-                        nodeDictionary.Add(node.GetUniqueID(), node);
-                    }
-                }
-            }
-            foreach(KeyValuePair<String, DialogueNode> pair in nodeDictionary)
-            {
-                Debug.Log(pair.Value.GetText() + "//" + pair.Key);
+                nodeDictionary.Add(node.GetUniqueID(), node);
+                 
             }
         }
 
@@ -76,6 +51,30 @@ namespace FlyingCrow.Dialogue
                 {
                     yield return nodeDictionary[child];
                 }
+            }
+        }
+
+        public void CreateNode(DialogueNode parent)
+        {
+            DialogueNode newNode = new DialogueNode();
+            newNode.SetUniqueID(Guid.NewGuid().ToString());
+            parent.AddChild(newNode);
+            nodes.Add(newNode);
+            nodeDictionary.Add(newNode.GetUniqueID(), newNode);
+        }
+
+        public void DeleteNode(DialogueNode nodeToDelete)
+        {
+            nodes.Remove(nodeToDelete);
+            nodeDictionary.Remove(nodeToDelete.GetUniqueID());
+            RemoveChildren(nodeToDelete);
+        }
+
+        private void RemoveChildren(DialogueNode nodeToDelete)
+        {
+            foreach (DialogueNode node in GetAllNodes())
+            {
+                node.RemoveChild(nodeToDelete);
             }
         }
     }
