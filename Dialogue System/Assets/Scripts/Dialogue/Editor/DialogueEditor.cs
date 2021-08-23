@@ -22,6 +22,8 @@ namespace FlyingCrow.Dialogue.Editor
         [NonSerialized] private float maxNodeSpaceWidth = 0;
         [NonSerialized] private bool draggingCanvas = false;
         [NonSerialized] private Vector2 draggingCanvasOffset;
+        const float bgSize = 50;
+        const float maxCanvasSize = 5000;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -29,14 +31,14 @@ namespace FlyingCrow.Dialogue.Editor
             GetWindow(typeof(DialogueEditor), false, "Dialogue Editor");
         }
 
-        [OnOpenAssetAttribute(1)]
+        [OnOpenAsset(1)]
         public static bool OnOpenAssets(int instanceID, int line)
         {
             bool isDialogue = false;
             Dialogue dialogue = EditorUtility.InstanceIDToObject(instanceID) as Dialogue;
             if (dialogue)
             {
-                DialogueEditor.ShowWindow();
+                ShowWindow();
                 isDialogue = true;
             }
             return isDialogue;
@@ -56,7 +58,7 @@ namespace FlyingCrow.Dialogue.Editor
         private void ChangeSelection()
         {
             Dialogue dialogue = Selection.activeObject as Dialogue;
-            if (dialogue)
+            if (dialogue != null)
             {
                 selectedDialogue = dialogue;
                 Repaint();
@@ -76,6 +78,8 @@ namespace FlyingCrow.Dialogue.Editor
                 //ScrollView
                 scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
+                SetCanvasBG();
+
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
                     DrawConnections(node);
@@ -86,7 +90,6 @@ namespace FlyingCrow.Dialogue.Editor
                     SetNodeSpace(node);
                 }
 
-                //max height and width
                 GUILayoutUtility.GetRect(maxNodeSpaceWidth, maxNodeSpaceHeight);
 
                 EditorGUILayout.EndScrollView();
@@ -106,6 +109,16 @@ namespace FlyingCrow.Dialogue.Editor
             }
         }
 
+        private static void SetCanvasBG()
+        {
+            Texture2D bgText = Resources.Load("background") as Texture2D;
+            GUI.DrawTextureWithTexCoords(
+                new Rect(0, 0, maxCanvasSize, maxCanvasSize),
+                bgText,
+                new Rect(0, 0, maxCanvasSize / bgSize, maxCanvasSize / bgSize)
+                );
+        }
+
         private void CatchEvents()
         {
             if (Event.current.type.Equals(EventType.MouseDown) && draggingNode == null)
@@ -114,11 +127,13 @@ namespace FlyingCrow.Dialogue.Editor
                 if (draggingNode != null)
                 {
                     dragNodeOffSet = draggingNode.GetRect().position - Event.current.mousePosition;
+                    Selection.activeObject = draggingNode;
                 }
                 else
                 {
                     draggingCanvas = true;
                     draggingCanvasOffset = Event.current.mousePosition + scrollPosition;
+                    Selection.activeObject = selectedDialogue;
                 }
             }
             else if (Event.current.type.Equals(EventType.MouseDrag) && draggingNode != null)
@@ -147,7 +162,8 @@ namespace FlyingCrow.Dialogue.Editor
             GUILayout.BeginArea(node.GetRect(), nodeStyle);
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.LabelField(node.GetUniqueID(), EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(node.name, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("");
 
             string text = EditorGUILayout.TextField("Text", node.GetText());
 
@@ -258,11 +274,11 @@ namespace FlyingCrow.Dialogue.Editor
         {
             if (node.GetRect().xMax > maxNodeSpaceWidth)
             {
-                maxNodeSpaceWidth = node.GetRect().xMax;
+                maxNodeSpaceWidth = Mathf.Min(node.GetRect().xMax, maxCanvasSize);
             }
             if (node.GetRect().yMax > maxNodeSpaceHeight)
             {
-                maxNodeSpaceHeight = node.GetRect().yMax;
+                maxNodeSpaceHeight = Mathf.Min(node.GetRect().yMax, maxCanvasSize);
             }
         }
     }

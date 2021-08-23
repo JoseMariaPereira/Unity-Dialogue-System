@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEditor;
 
 namespace FlyingCrow.Dialogue
 {
@@ -15,9 +16,7 @@ namespace FlyingCrow.Dialogue
         {
             if (nodes.Count == 0)
             {
-                DialogueNode rootNode = new DialogueNode();
-                rootNode.SetUniqueID(Guid.NewGuid().ToString());
-                nodes.Add(rootNode);
+                CreateNode(null);
             }
             OnValidate();
         }
@@ -28,8 +27,7 @@ namespace FlyingCrow.Dialogue
             nodeDictionary.Clear();
             foreach(DialogueNode node in GetAllNodes())
             {
-                nodeDictionary.Add(node.GetUniqueID(), node);
-                 
+                nodeDictionary.Add(node.name, node);
             }
         }
 
@@ -56,18 +54,26 @@ namespace FlyingCrow.Dialogue
 
         public void CreateNode(DialogueNode parent)
         {
-            DialogueNode newNode = new DialogueNode();
-            newNode.SetUniqueID(Guid.NewGuid().ToString());
-            parent.AddChild(newNode);
+            DialogueNode newNode = CreateInstance<DialogueNode>();
+            newNode.name = Guid.NewGuid().ToString();
+            Undo.RegisterCreatedObjectUndo(newNode, "Created Dialogue Node");
+            if (parent != null)
+            {
+                parent.AddChild(newNode);
+                Vector2 position = parent.GetRect().position 
+                    + new Vector2 (parent.GetRect().width * 0.5f, parent.GetRect().height * 1.1f);
+                newNode.SetRectPosition(position);
+            }
             nodes.Add(newNode);
-            nodeDictionary.Add(newNode.GetUniqueID(), newNode);
+            nodeDictionary.Add(newNode.name, newNode);
         }
 
         public void DeleteNode(DialogueNode nodeToDelete)
         {
             nodes.Remove(nodeToDelete);
-            nodeDictionary.Remove(nodeToDelete.GetUniqueID());
+            nodeDictionary.Remove(nodeToDelete.name);
             RemoveChildren(nodeToDelete);
+            Undo.DestroyObjectImmediate(nodeToDelete);
         }
 
         private void RemoveChildren(DialogueNode nodeToDelete)

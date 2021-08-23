@@ -3,23 +3,11 @@ using System.Collections.Generic;
 
 namespace FlyingCrow.Dialogue
 {
-    [System.Serializable]
-    public class DialogueNode
+    public class DialogueNode : ScriptableObject
     {
-        [SerializeField] private string uniqueID;
         [SerializeField] private string text;
-        [SerializeField] private Rect rect = new Rect(0, 0, 400, 100); 
+        [SerializeField] private Rect rect = new Rect(0, 0, 400, 120); 
         [SerializeField] private List<string> children = new List<string>();
-
-        public string GetUniqueID()
-        {
-            return uniqueID;
-        }
-
-        public void SetUniqueID(string uniqueID)
-        {
-            this.uniqueID = uniqueID;
-        }
 
         public string GetText()
         {
@@ -48,17 +36,17 @@ namespace FlyingCrow.Dialogue
 
         public void AddChild(DialogueNode child)
         {
-            children.Add(child.GetUniqueID());
+            children.Add(child.name);
         }
 
         public void RemoveChild(DialogueNode child)
         {
-            children.Remove(child.GetUniqueID());
+            children.Remove(child.name);
         }
 
         public bool ContainsChild(DialogueNode child)
         {
-            return children.Contains(child.GetUniqueID());
+            return children.Contains(child.name);
         }
 
     }
