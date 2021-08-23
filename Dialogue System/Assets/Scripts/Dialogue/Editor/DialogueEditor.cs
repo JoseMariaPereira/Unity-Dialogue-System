@@ -22,6 +22,8 @@ namespace FlyingCrow.Dialogue.Editor
         private DialogueNode creatingNode = null;
         [NonSerialized]
         private DialogueNode deletingNode = null;
+        [NonSerialized]
+        private DialogueNode linkingParentNode = null;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -133,12 +135,13 @@ namespace FlyingCrow.Dialogue.Editor
                 node.SetText(text);
             }
 
-            //Horizontal align
+            //Horizontal align buttons
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("x"))
             {
                 deletingNode = node;
             }
+            LinkButtons(node);
             if (GUILayout.Button("+"))
             {
                 creatingNode = node;
@@ -146,6 +149,42 @@ namespace FlyingCrow.Dialogue.Editor
             GUILayout.EndHorizontal();
 
             GUILayout.EndArea();
+        }
+
+        private void LinkButtons(DialogueNode node)
+        {
+            if (linkingParentNode == null)
+            {
+                if (GUILayout.Button("link"))
+                {
+                    linkingParentNode = node;
+                }
+            }
+            else if (linkingParentNode == node)
+            {
+                if (GUILayout.Button("cancel"))
+                {
+                    linkingParentNode = null;
+                }
+            }
+            else if (linkingParentNode.ContainsChild(node))
+            {
+                if (GUILayout.Button("unlink"))
+                {
+                    Undo.RecordObject(selectedDialogue, "Remove Dialogue Link");
+                    linkingParentNode.RemoveChild(node);
+                    linkingParentNode = null;
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("child"))
+                {
+                    Undo.RecordObject(selectedDialogue, "Add Dialogue Link");
+                    linkingParentNode.AddChild(node);
+                    linkingParentNode = null;
+                }
+            }
         }
 
         private void DrawConnections(DialogueNode node)
