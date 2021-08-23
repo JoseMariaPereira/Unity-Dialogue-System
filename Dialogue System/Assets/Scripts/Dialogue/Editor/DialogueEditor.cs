@@ -10,20 +10,18 @@ namespace FlyingCrow.Dialogue.Editor
     public class DialogueEditor : EditorWindow
     {
         private Dialogue selectedDialogue = null;
-        [NonSerialized]
-        private GUIStyle nodeStyle;
-        [NonSerialized]
-        private DialogueNode draggingNode = null;
-        [NonSerialized]
-        private Vector2 dragOffSet = Vector2.zero;
-        [NonSerialized]
-        private float lineSize = 3f;
-        [NonSerialized]
-        private DialogueNode creatingNode = null;
-        [NonSerialized]
-        private DialogueNode deletingNode = null;
-        [NonSerialized]
-        private DialogueNode linkingParentNode = null;
+        [NonSerialized] private GUIStyle nodeStyle;
+        [NonSerialized] private DialogueNode draggingNode = null;
+        [NonSerialized] private Vector2 dragNodeOffSet = Vector2.zero;
+        [NonSerialized] private float lineSize = 3f;
+        [NonSerialized] private DialogueNode creatingNode = null;
+        [NonSerialized] private DialogueNode deletingNode = null;
+        [NonSerialized] private DialogueNode linkingParentNode = null;
+        private Vector2 scrollPosition;
+        [NonSerialized] private float maxNodeSpaceHeight = 0;
+        [NonSerialized] private float maxNodeSpaceWidth = 0;
+        [NonSerialized] private bool draggingCanvas = false;
+        [NonSerialized] private Vector2 draggingCanvasOffset;
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowWindow() 
@@ -74,7 +72,10 @@ namespace FlyingCrow.Dialogue.Editor
             else
             {
                 CatchEvents();
-                EditorGUILayout.LabelField(selectedDialogue.name);
+
+                //ScrollView
+                scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
                     DrawConnections(node);
@@ -82,7 +83,14 @@ namespace FlyingCrow.Dialogue.Editor
                 foreach (DialogueNode node in selectedDialogue.GetAllNodes())
                 {
                     DrawNodeLayout(node);
+                    SetNodeSpace(node);
                 }
+
+                //max height and width
+                GUILayoutUtility.GetRect(maxNodeSpaceWidth, maxNodeSpaceHeight);
+
+                EditorGUILayout.EndScrollView();
+
                 if (creatingNode != null)
                 {
                     Undo.RecordObject(selectedDialogue, "Add Dialogue Node");
@@ -102,21 +110,35 @@ namespace FlyingCrow.Dialogue.Editor
         {
             if (Event.current.type.Equals(EventType.MouseDown) && draggingNode == null)
             {
-                draggingNode = GetNodeAtPoint(Event.current.mousePosition);
+                draggingNode = GetNodeAtPoint(Event.current.mousePosition + scrollPosition);
                 if (draggingNode != null)
                 {
-                    dragOffSet = draggingNode.GetRect().position - Event.current.mousePosition;
+                    dragNodeOffSet = draggingNode.GetRect().position - Event.current.mousePosition;
+                }
+                else
+                {
+                    draggingCanvas = true;
+                    draggingCanvasOffset = Event.current.mousePosition + scrollPosition;
                 }
             }
             else if (Event.current.type.Equals(EventType.MouseDrag) && draggingNode != null)
             {
                 Undo.RecordObject(selectedDialogue, "Move Dialogue Node");
-                draggingNode.SetRectPosition(Event.current.mousePosition + dragOffSet); 
+                draggingNode.SetRectPosition(Event.current.mousePosition + dragNodeOffSet); 
+                GUI.changed = true;
+            }
+            else if (Event.current.type.Equals(EventType.MouseDrag) && draggingCanvas)
+            {
+                scrollPosition = draggingCanvasOffset - Event.current.mousePosition;
                 GUI.changed = true;
             }
             else if (Event.current.type.Equals(EventType.MouseUp) && draggingNode != null)
             {
                 draggingNode = null;
+            }
+            else if (Event.current.type.Equals(EventType.MouseUp) && draggingCanvas)
+            {
+                draggingCanvas = false;
             }
         }
 
@@ -230,6 +252,18 @@ namespace FlyingCrow.Dialogue.Editor
                 }
             }
             return lastNode;
+        }
+
+        private void SetNodeSpace(DialogueNode node)
+        {
+            if (node.GetRect().xMax > maxNodeSpaceWidth)
+            {
+                maxNodeSpaceWidth = node.GetRect().xMax;
+            }
+            if (node.GetRect().yMax > maxNodeSpaceHeight)
+            {
+                maxNodeSpaceHeight = node.GetRect().yMax;
+            }
         }
     }
 }
