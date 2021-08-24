@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8135080397354529829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 3f850135-3f51-4ec3-a57f-8b97df02037e
+  m_EditorClassIdentifier: 
+  playerDecision: 0
+  text: "Jajaj toma un pa\xF1al"
+  rect:
+    serializedVersion: 2
+    x: 249
+    y: 443
+    width: 300
+    height: 160
+  children: []
+--- !u!114 &-7785083744118214046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: d57e3265-a62e-4efd-802a-9324c36664c6
+  m_EditorClassIdentifier: 
+  playerDecision: 0
+  text: Quieres guerra?
+  rect:
+    serializedVersion: 2
+    x: 770
+    y: 35
+    width: 300
+    height: 160
+  children:
+  - 5fc5c8e4-3971-4b56-8294-108725ad6c7e
+  - 085b2adf-e013-4590-bf97-1668934cc92c
 --- !u!114 &-6210270413986005318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,14 +56,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
   m_Name: c83ebd55-fc63-48ae-9704-0e87930c9b2f
   m_EditorClassIdentifier: 
-  text: 
+  playerDecision: 0
+  text: 'Hola Jugador
+
+    Veo que te has hecho caca encima
+
+
+    Jajajajaja'
   rect:
     serializedVersion: 2
-    x: 135
-    y: 82
-    width: 400
-    height: 120
-  children: []
+    x: 17
+    y: 26
+    width: 300
+    height: 160
+  children:
+  - 31834378-cb30-4cd4-bc2f-956c7d6ddece
+  - d5f4d195-7d8d-4dd9-8e64-f9d143ba0d45
+--- !u!114 &-1824670636364921171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: d5f4d195-7d8d-4dd9-8e64-f9d143ba0d45
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: Si...
+  rect:
+    serializedVersion: 2
+    x: 74
+    y: 253
+    width: 300
+    height: 160
+  children:
+  - 3f850135-3f51-4ec3-a57f-8b97df02037e
+--- !u!114 &-1196717361603097060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 085b2adf-e013-4590-bf97-1668934cc92c
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: No...
+  rect:
+    serializedVersion: 2
+    x: 438
+    y: 257
+    width: 300
+    height: 160
+  children:
+  - 3f850135-3f51-4ec3-a57f-8b97df02037e
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,3 +130,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -6210270413986005318}
+  - {fileID: 584385108806608486}
+  - {fileID: -1824670636364921171}
+  - {fileID: -8135080397354529829}
+  - {fileID: -7785083744118214046}
+  - {fileID: 4376566823431857967}
+  - {fileID: -1196717361603097060}
+--- !u!114 &584385108806608486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 31834378-cb30-4cd4-bc2f-956c7d6ddece
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: Que te den!
+  rect:
+    serializedVersion: 2
+    x: 377
+    y: 58
+    width: 300
+    height: 160
+  children:
+  - d57e3265-a62e-4efd-802a-9324c36664c6
+--- !u!114 &4376566823431857967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 5fc5c8e4-3971-4b56-8294-108725ad6c7e
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: Vamos a ello!
+  rect:
+    serializedVersion: 2
+    x: 790
+    y: 255
+    width: 300
+    height: 160
+  children: []

@@ -8,7 +8,7 @@ namespace FlyingCrow.Dialogue
     {
         [SerializeField] private bool playerDecision = false;
         [SerializeField] private string text = "";
-        [SerializeField] private Rect rect = new Rect(0, 0, 400, 120); 
+        [SerializeField] private Rect rect = new Rect(0, 0, 300, 160); 
         [SerializeField] private List<string> children = new List<string>();
 
         public string GetText()

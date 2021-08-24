@@ -165,10 +165,11 @@ namespace FlyingCrow.Dialogue.Editor
 
             GUILayout.BeginArea(node.GetRect(), node.IsPlayer() ? playerStyle : nodeStyle);
 
-            EditorGUILayout.LabelField(node.name, EditorStyles.boldLabel);
-            EditorGUILayout.LabelField("");
+            //EditorGUILayout.LabelField(node.name, EditorStyles.boldLabel);
+            //EditorGUILayout.LabelField("");
 
-            node.SetText(EditorGUILayout.TextField("Text", node.GetText()));
+            //node.SetText(EditorGUILayout.TextField("Text", node.GetText()));
+            node.SetText(EditorGUILayout.TextArea(node.GetText(), GUILayout.Height(100)));
 
             //Horizontal align buttons
             GUILayout.BeginHorizontal();
