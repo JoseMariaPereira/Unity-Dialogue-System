@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8135080397354529829
+--- !u!114 &-7038359396083415924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: 3f850135-3f51-4ec3-a57f-8b97df02037e
+  m_Name: 750c840d-f419-4f03-b4b0-976f2f78abcd
   m_EditorClassIdentifier: 
   playerDecision: 0
-  text: "Jajaj toma un pa\xF1al"
+  text: Ouch,,,
   rect:
     serializedVersion: 2
-    x: 249
-    y: 443
+    x: 708
+    y: 487
     width: 300
     height: 160
   children: []
---- !u!114 &-7785083744118214046
+--- !u!114 &-4226286199750545430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,20 +31,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: d57e3265-a62e-4efd-802a-9324c36664c6
+  m_Name: 5959e7ae-54c8-40aa-98b2-bf49794f61f3
   m_EditorClassIdentifier: 
   playerDecision: 0
-  text: Quieres guerra?
+  text: Take these!
   rect:
     serializedVersion: 2
-    x: 770
-    y: 35
+    x: 351
+    y: 595
     width: 300
     height: 160
-  children:
-  - 5fc5c8e4-3971-4b56-8294-108725ad6c7e
-  - 085b2adf-e013-4590-bf97-1668934cc92c
---- !u!114 &-6210270413986005318
+  children: []
+--- !u!114 &-3507140030367781128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,25 +52,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: c83ebd55-fc63-48ae-9704-0e87930c9b2f
+  m_Name: 7b74af48-cc0d-4705-9ba4-e12938332679
   m_EditorClassIdentifier: 
   playerDecision: 0
-  text: 'Hola Jugador
-
-    Veo que te has hecho caca encima
-
-
-    Jajajajaja'
+  text: Realy?
   rect:
     serializedVersion: 2
-    x: 17
-    y: 26
+    x: 714
+    y: 32
     width: 300
     height: 160
   children:
-  - 31834378-cb30-4cd4-bc2f-956c7d6ddece
-  - d5f4d195-7d8d-4dd9-8e64-f9d143ba0d45
---- !u!114 &-1824670636364921171
+  - 7a5186ad-73b5-4f69-b245-97433d087c64
+  - 50e3086e-fc43-4624-8e1e-3d2517ebaec2
+--- !u!114 &-3283036906014423641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,19 +75,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: d5f4d195-7d8d-4dd9-8e64-f9d143ba0d45
+  m_Name: 7a5186ad-73b5-4f69-b245-97433d087c64
   m_EditorClassIdentifier: 
   playerDecision: 1
-  text: Si...
+  text: Nooo
   rect:
     serializedVersion: 2
-    x: 74
-    y: 253
+    x: 464
+    y: 219
     width: 300
     height: 160
   children:
-  - 3f850135-3f51-4ec3-a57f-8b97df02037e
---- !u!114 &-1196717361603097060
+  - 55cd8a79-15b9-4362-9909-c9c7d9385bf8
+--- !u!114 &-1609478670038526265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,18 +97,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: 085b2adf-e013-4590-bf97-1668934cc92c
+  m_Name: f41984c3-f18b-4934-be46-bc9f732801df
   m_EditorClassIdentifier: 
-  playerDecision: 1
-  text: No...
+  playerDecision: 0
+  text: Sample question?
   rect:
     serializedVersion: 2
-    x: 438
-    y: 257
+    x: -2
+    y: 2
     width: 300
     height: 160
   children:
-  - 3f850135-3f51-4ec3-a57f-8b97df02037e
+  - 1be719f9-148e-4cde-bf5a-35cf9c14fe1a
+  - 8c7c9222-bd9e-4a1b-a52e-b27e0f154d20
+--- !u!114 &-974752092820763223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 8c7c9222-bd9e-4a1b-a52e-b27e0f154d20
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: NO!
+  rect:
+    serializedVersion: 2
+    x: 361
+    y: 24
+    width: 300
+    height: 160
+  children:
+  - 7b74af48-cc0d-4705-9ba4-e12938332679
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,17 +142,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee750561830b16242a080eb065308e0f, type: 3}
-  m_Name: AAAA
+  m_Name: Sample
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -6210270413986005318}
-  - {fileID: 584385108806608486}
-  - {fileID: -1824670636364921171}
-  - {fileID: -8135080397354529829}
-  - {fileID: -7785083744118214046}
-  - {fileID: 4376566823431857967}
-  - {fileID: -1196717361603097060}
---- !u!114 &584385108806608486
+  - {fileID: -1609478670038526265}
+  - {fileID: 367619054641659349}
+  - {fileID: -974752092820763223}
+  - {fileID: 2156850917436091140}
+  - {fileID: -3507140030367781128}
+  - {fileID: -3283036906014423641}
+  - {fileID: 5377442783426509389}
+  - {fileID: -7038359396083415924}
+  - {fileID: -4226286199750545430}
+--- !u!114 &367619054641659349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,19 +164,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: 31834378-cb30-4cd4-bc2f-956c7d6ddece
+  m_Name: 1be719f9-148e-4cde-bf5a-35cf9c14fe1a
   m_EditorClassIdentifier: 
   playerDecision: 1
-  text: Que te den!
+  text: Yes!
   rect:
     serializedVersion: 2
-    x: 377
-    y: 58
+    x: 33
+    y: 264
     width: 300
     height: 160
   children:
-  - d57e3265-a62e-4efd-802a-9324c36664c6
---- !u!114 &4376566823431857967
+  - 55cd8a79-15b9-4362-9909-c9c7d9385bf8
+--- !u!114 &2156850917436091140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,14 +186,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
-  m_Name: 5fc5c8e4-3971-4b56-8294-108725ad6c7e
+  m_Name: 55cd8a79-15b9-4362-9909-c9c7d9385bf8
   m_EditorClassIdentifier: 
-  playerDecision: 1
-  text: Vamos a ello!
+  playerDecision: 0
+  text: Nice!
   rect:
     serializedVersion: 2
-    x: 790
-    y: 255
+    x: 382
+    y: 405
     width: 300
     height: 160
-  children: []
+  children:
+  - 5959e7ae-54c8-40aa-98b2-bf49794f61f3
+--- !u!114 &5377442783426509389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18316f159eaf6664693280c42d982729, type: 3}
+  m_Name: 50e3086e-fc43-4624-8e1e-3d2517ebaec2
+  m_EditorClassIdentifier: 
+  playerDecision: 1
+  text: Yes really
+  rect:
+    serializedVersion: 2
+    x: 826
+    y: 228
+    width: 300
+    height: 160
+  children:
+  - 750c840d-f419-4f03-b4b0-976f2f78abcd
