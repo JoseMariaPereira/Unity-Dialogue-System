@@ -228,14 +228,17 @@ namespace FlyingCrow.Dialogue.Editor
                 Vector3 startPosition;
                 Vector3 endPosition;
                 Vector3 offSet;
-                if (Mathf.Abs(node.GetRect().position.x - child.GetRect().position.x) * node.GetRect().height 
-                    <= Mathf.Abs(node.GetRect().position.y - child.GetRect().position.y) * node.GetRect().width)
+                Texture2D aTexture;
+                Vector2 texSize;
+                if (VerticalLineCondition(node, child))
                 {
                     startPosition = new Vector2(node.GetRect().center.x, node.GetRect().yMax);
                     endPosition = new Vector2(child.GetRect().center.x, child.GetRect().yMin);
                     offSet = endPosition - startPosition;
                     offSet.y = Mathf.Abs(offSet.y * 0.9f);
                     offSet.x = 0;
+                    aTexture = Resources.Load("Down") as Texture2D;
+                    texSize = new Vector2(10, 5);
                 }
                 else
                 {
@@ -243,13 +246,16 @@ namespace FlyingCrow.Dialogue.Editor
                     endPosition = new Vector2(child.GetRect().xMin, child.GetRect().center.y);
                     offSet = endPosition - startPosition;
                     offSet.y = 0;
-                    offSet.x = Mathf.Abs(offSet.x * 0.9f); 
+                    offSet.x = Mathf.Abs(offSet.x * 0.9f);
+                    aTexture = Resources.Load("Right") as Texture2D;
+                    texSize = new Vector2(5, 10);
                 }
                 Handles.DrawBezier(
                     startPosition, endPosition, 
                     startPosition + offSet, 
                     endPosition - offSet, 
                     Color.white, null, lineSize);
+                GUI.DrawTexture(new Rect(endPosition.x - texSize.x / 2, endPosition.y - texSize.y / 2, texSize.x, texSize.y), aTexture, ScaleMode.StretchToFill);
             }
         }
 
@@ -276,6 +282,14 @@ namespace FlyingCrow.Dialogue.Editor
             {
                 maxNodeSpaceHeight = Mathf.Min(node.GetRect().yMax, maxCanvasSize);
             }
+        }
+
+        private bool VerticalLineCondition(DialogueNode parent, DialogueNode child)
+        {
+            bool makeHorizontal;
+            makeHorizontal = (parent.GetRect().position.x - child.GetRect().position.x) * parent.GetRect().height
+                    > (parent.GetRect().position.y - child.GetRect().position.y) * parent.GetRect().width;
+            return makeHorizontal;
         }
     }
 }

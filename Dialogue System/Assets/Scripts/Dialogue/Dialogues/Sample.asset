@@ -16,8 +16,8 @@ MonoBehaviour:
   text: Ouch,,,
   rect:
     serializedVersion: 2
-    x: 708
-    y: 487
+    x: 742
+    y: 484
     width: 300
     height: 160
   children: []
@@ -81,8 +81,8 @@ MonoBehaviour:
   text: Nooo
   rect:
     serializedVersion: 2
-    x: 464
-    y: 219
+    x: 409
+    y: 202
     width: 300
     height: 160
   children:
@@ -127,7 +127,7 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 361
-    y: 24
+    y: 17
     width: 300
     height: 160
   children:
@@ -192,7 +192,7 @@ MonoBehaviour:
   text: Nice!
   rect:
     serializedVersion: 2
-    x: 382
+    x: 398
     y: 405
     width: 300
     height: 160
